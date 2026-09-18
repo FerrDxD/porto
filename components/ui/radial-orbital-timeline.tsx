@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { Monitor, MapPin, Bot, Globe, UserCheck, FileText, Sparkles, GraduationCap } from "lucide-react";
+import { Bot, Globe, UserCheck, FileText, Sparkles, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface TimelineItem {

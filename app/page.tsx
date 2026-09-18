@@ -41,7 +41,7 @@ export default function Home() {
           <div className="space-y-4 relative z-10 px-6">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">Ready to collaborate?</h2>
             <p className="text-zinc-400 md:text-lg max-w-xl mx-auto leading-relaxed">
-              I'm always open to discussing product design work or partnership opportunities. Let's build something impactful together.
+              I&apos;m always open to discussing product design work or partnership opportunities. Let&apos;s build something impactful together.
             </p>
           </div>
           
