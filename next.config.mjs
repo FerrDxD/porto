@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.21st.dev",
+      },
+    ],
+  },
   // Security headers applied in middleware? Keep config minimal and explicit.
   async headers() {
     return [

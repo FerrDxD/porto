@@ -42,10 +42,34 @@ export default function RadialOrbitalTimeline({
   // Auto-rotate
   useEffect(() => {
     if (!autoRotate) return;
-    const timer = setInterval(() => {
-      setRotationAngle((prev) => (prev + 0.3) % 360);
-    }, 50);
-    return () => clearInterval(timer);
+
+    let timer: NodeJS.Timeout;
+
+    const startRotation = () => {
+      timer = setInterval(() => {
+        setRotationAngle((prev) => (prev + 0.3) % 360);
+      }, 50);
+    };
+
+    const stopRotation = () => {
+      clearInterval(timer);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopRotation();
+      } else {
+        startRotation();
+      }
+    };
+
+    startRotation();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      stopRotation();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [autoRotate]);
 
   const getNodePosition = (index: number, total: number) => {

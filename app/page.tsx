@@ -1,5 +1,28 @@
-import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
-import { ParallaxComponent } from "@/components/ui/parallax-scrolling";
+import dynamic from "next/dynamic";
+
+const RadialOrbitalTimeline = dynamic(
+  () => import("@/components/ui/radial-orbital-timeline").then((mod) => mod.default),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[600px] flex items-center justify-center text-zinc-500">
+        Loading...
+      </div>
+    ),
+  },
+);
+
+const ParallaxComponent = dynamic(
+  () => import("@/components/ui/parallax-scrolling").then((mod) => mod.ParallaxComponent),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-screen flex items-center justify-center text-zinc-500">
+        Loading...
+      </div>
+    ),
+  },
+);
 
 export default function Home() {
   return (

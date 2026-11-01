@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -49,7 +49,11 @@ export function ParallaxComponent() {
       });
     }
 
-    const lenis = new Lenis();
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
@@ -72,22 +76,34 @@ export function ParallaxComponent() {
             className="absolute inset-0 w-full h-full flex items-center justify-center"
           >
             {/* Background Layer */}
-            <img
-              src="https://cdn.21st.dev/assets/mirror/a4/a43f4eae3459c461345ee676f12d6e1ddca65e8a5279a5af00d475b17ff83aea.webp"
-              loading="eager"
+            <div
+              className="absolute -top-[30%] left-0 w-full h-[160%] origin-top"
               data-parallax-layer="1"
-              alt=""
-              className="absolute -top-[30%] left-0 w-full h-[160%] object-cover origin-top"
-            />
+            >
+              <Image
+                src="https://cdn.21st.dev/assets/mirror/a4/a43f4eae3459c461345ee676f12d6e1ddca65e8a5279a5af00d475b17ff83aea.webp"
+                alt=""
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
 
             {/* Mid Layer */}
-            <img
-              src="https://cdn.21st.dev/assets/mirror/50/50ca6a0d36d2780bfcb469d6db7eaec0be7e0d2961ba69a63d2a1473b040338d.webp"
-              loading="eager"
+            <div
+              className="absolute -top-[20%] left-0 w-full h-[140%] origin-top"
               data-parallax-layer="2"
-              alt=""
-              className="absolute -top-[20%] left-0 w-full h-[140%] object-cover origin-top"
-            />
+            >
+              <Image
+                src="https://cdn.21st.dev/assets/mirror/50/50ca6a0d36d2780bfcb469d6db7eaec0be7e0d2961ba69a63d2a1473b040338d.webp"
+                alt=""
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
 
             {/* Text Layer */}
             <div
@@ -100,13 +116,19 @@ export function ParallaxComponent() {
             </div>
 
             {/* Foreground Layer */}
-            <img
-              src="https://cdn.21st.dev/assets/mirror/e1/e1c8137b5f971c3b3ec1a0f9e79b9c17018767005f844a10082b890472afecfb.webp"
-              loading="eager"
+            <div
+              className="absolute -bottom-[15%] w-full h-[130%] origin-bottom"
               data-parallax-layer="4"
-              alt=""
-              className="absolute -bottom-[15%] w-full h-[130%] object-cover origin-bottom"
-            />
+            >
+              <Image
+                src="https://cdn.21st.dev/assets/mirror/e1/e1c8137b5f971c3b3ec1a0f9e79b9c17018767005f844a10082b890472afecfb.webp"
+                alt=""
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
           </div>
 
           <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-zinc-950 to-transparent z-20"></div>
