@@ -34,7 +34,9 @@ export default function RadialOrbitalTimeline({
 }: RadialOrbitalTimelineProps) {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [rotationAngle, setRotationAngle] = useState(0);
-  const [autoRotate, setAutoRotate] = useState(true);
+  const [autoRotate, setAutoRotate] = useState(
+    typeof window !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Auto-rotate
@@ -62,6 +64,13 @@ export default function RadialOrbitalTimeline({
     } else {
       setExpandedId(id);
       setAutoRotate(false);
+    }
+  };
+
+  const handleNodeKeyDown = (e: React.KeyboardEvent, id: number) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleNodeClick(id);
     }
   };
 
@@ -102,8 +111,9 @@ export default function RadialOrbitalTimeline({
               const isRelated = activeItem?.relatedIds.includes(item.id) ?? false;
 
               return (
-                <div
+                <button
                   key={item.id}
+                  type="button"
                   className={`absolute flex flex-col items-center cursor-pointer group ${isExpanded ? "z-50" : "z-20"}`}
                   style={{
                     left: `calc(50% + ${x}px)`,
@@ -114,6 +124,9 @@ export default function RadialOrbitalTimeline({
                     e.stopPropagation();
                     handleNodeClick(item.id);
                   }}
+                  onKeyDown={(e) => handleNodeKeyDown(e, item.id)}
+                  aria-expanded={isExpanded}
+                  aria-label={`View details for ${item.title}`}
                 >
                   {/* Connection Line to Center (only when hovered or active) */}
                   {(isExpanded || isRelated) && (
@@ -196,7 +209,7 @@ export default function RadialOrbitalTimeline({
                             <a
                               href={item.repoUrl}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noopener noreferrer"
                               className="flex-1 text-center py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg text-xs font-medium text-zinc-300 transition-colors"
                             >
                               Repository
@@ -206,7 +219,7 @@ export default function RadialOrbitalTimeline({
                             <a
                               href={item.liveUrl}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noopener noreferrer"
                               className="flex-1 text-center py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-lg text-xs font-medium text-indigo-300 transition-colors"
                             >
                               Live Site
@@ -216,14 +229,39 @@ export default function RadialOrbitalTimeline({
                       </div>
                     </div>
                   )}
-                </div>
+                </button>
               );
             })}
           </div>
         </div>
       </div>
 
-      <p className="text-xs text-zinc-600 mt-4 sm:mt-12">Click a node to explore</p>
+      <div className="flex items-center gap-4 mt-4 sm:mt-12">
+        <button
+          type="button"
+          onClick={() => setAutoRotate(!autoRotate)}
+          className="flex items-center gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          aria-label={autoRotate ? "Pause auto-rotation" : "Resume auto-rotation"}
+        >
+          {autoRotate ? (
+            <>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16" />
+                <rect x="14" y="4" width="4" height="16" />
+              </svg>
+              Pause
+            </>
+          ) : (
+            <>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+              Play
+            </>
+          )}
+        </button>
+        <span className="text-xs text-zinc-600">Click a node to explore</span>
+      </div>
     </div>
   );
 }
