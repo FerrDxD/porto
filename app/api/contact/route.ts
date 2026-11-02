@@ -1,7 +1,33 @@
 import { NextResponse } from "next/server";
+import { checkRateLimit } from "@/lib/rate-limit";
+import { captureError } from "@/lib/observability";
 
 export async function POST(request: Request) {
   try {
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+      request.headers.get("x-real-ip") ||
+      "127.0.0.1";
+
+    const { allowed, resetMs } = checkRateLimit(`contact:${ip}`, {
+      limit: 5,
+      windowMs: 60_000,
+    });
+
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Too many contact requests. Please try again later." },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": Math.ceil(resetMs / 1000).toString(),
+            "X-RateLimit-Limit": "5",
+            "X-RateLimit-Remaining": "0",
+          },
+        },
+      );
+    }
+
     const body = await request.json();
     const { name, email, message, honeypot } = body;
 
@@ -47,7 +73,10 @@ export async function POST(request: Request) {
       });
 
       if (!res.ok) {
-        console.error("Resend API dispatch error:", await res.text());
+        captureError(new Error(`Resend API dispatch error: ${await res.text()}`), {
+          route: "/api/contact",
+          extra: { email, name },
+        });
       }
     } else {
       console.log(`[Contact Submission] from: ${name} (${email}): ${message}`);
@@ -58,7 +87,7 @@ export async function POST(request: Request) {
       message: "Message sent successfully.",
     });
   } catch (err) {
-    console.error("Contact API error:", err);
+    captureError(err, { route: "/api/contact" });
     return NextResponse.json({ error: "Internal server error occurred." }, { status: 500 });
   }
 }

@@ -290,7 +290,7 @@ Prinsip: setiap milestone punya **tujuan jelas, scope terbatas, deliverable teru
 
 ---
 
-### Milestone M8 — Production Readiness & Observability (Prioritas: P2)
+### Milestone M8 — Production Readiness & Observability (Prioritas: P2) — ✅ Done
 
 **Tujuan:** Deploy aman, terpantau, mudah dioperasikan.
 

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { RotateCcw } from "lucide-react";
+import { captureError } from "@/lib/observability";
 
 export default function ErrorBoundary({
   error,
@@ -11,7 +12,7 @@ export default function ErrorBoundary({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("Runtime application error:", error);
+    captureError(error, { route: "app-error", digest: error.digest });
   }, [error]);
 
   return (
@@ -30,7 +31,7 @@ export default function ErrorBoundary({
           <button
             type="button"
             onClick={() => reset()}
-            className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 font-medium text-sm transition-all"
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 font-medium text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
           >
             <RotateCcw className="w-4 h-4" />
             <span>Retry Connection</span>
