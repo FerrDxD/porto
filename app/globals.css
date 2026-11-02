@@ -49,34 +49,8 @@
     --radius: 0.5rem;
   }
 
-  html {
-    scroll-behavior: smooth;
-    caret-color: #6366f1;
-  }
-
-  ::selection {
-    background-color: rgba(99, 102, 241, 0.35);
-    color: #ffffff;
-  }
-
   *:focus-visible {
     outline: 2px solid theme("colors.indigo.500");
     outline-offset: 2px;
-  }
-
-  /* Custom obsidian scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #09090b;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #27272a;
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f46;
   }
 }
