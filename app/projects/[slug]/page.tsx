@@ -10,6 +10,8 @@ import {
   Layers,
   Cpu,
   Lightbulb,
+  BookOpen,
+  Clock,
 } from "lucide-react";
 import { projects, statusStyles } from "@/content";
 import { Badge } from "@/components/ui/badge";
@@ -38,110 +40,138 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function renderCaseStudy(content: string) {
-  const blocks = content
-    .split("\n\n")
-    .map((b) => b.trim())
-    .filter(Boolean);
+interface Chapter {
+  title: string;
+  blocks: string[];
+}
 
+function parseCaseStudyChapters(content: string): Chapter[] {
+  const lines = content.split("\n");
+  const chapters: Chapter[] = [];
+  let currentChapter: Chapter = { title: "Overview", blocks: [] };
+  let currentBlock: string[] = [];
+
+  const flushBlock = () => {
+    if (currentBlock.length > 0) {
+      currentChapter.blocks.push(currentBlock.join("\n").trim());
+      currentBlock = [];
+    }
+  };
+
+  for (const line of lines) {
+    if (line.startsWith("### ")) {
+      flushBlock();
+      if (currentChapter.blocks.length > 0 || currentChapter.title !== "Overview") {
+        chapters.push(currentChapter);
+      }
+      currentChapter = {
+        title: line.replace("### ", "").trim(),
+        blocks: [],
+      };
+    } else if (line.trim() === "") {
+      flushBlock();
+    } else {
+      currentBlock.push(line);
+    }
+  }
+  flushBlock();
+  if (currentChapter.blocks.length > 0) {
+    chapters.push(currentChapter);
+  }
+
+  return chapters;
+}
+
+interface ParsedListItem {
+  num?: string;
+  title?: string;
+  body: string;
+}
+
+function parseListItems(block: string, isOrdered: boolean): ParsedListItem[] {
+  const lines = block.split("\n").filter((l) => l.trim().length > 0);
+  return lines.map((line, idx) => {
+    let cleanLine = line;
+    let num = `${idx + 1}`;
+    if (isOrdered) {
+      const match = line.match(/^(\d+)\.\s*(.*)$/);
+      if (match) {
+        num = match[1];
+        cleanLine = match[2];
+      }
+    } else {
+      cleanLine = line.replace(/^[-*]\s*/, "");
+    }
+
+    const colonIdx = cleanLine.indexOf(":");
+    if (colonIdx > 0 && colonIdx < 50) {
+      return {
+        num,
+        title: cleanLine.slice(0, colonIdx).trim(),
+        body: cleanLine.slice(colonIdx + 1).trim(),
+      };
+    }
+    return {
+      num,
+      body: cleanLine.trim(),
+    };
+  });
+}
+
+function renderChapterBlocks(blocks: string[]) {
   return blocks.map((block, i) => {
-    // Section Heading (###)
-    if (block.startsWith("### ")) {
-      return (
-        <h3
-          key={i}
-          className="text-xl sm:text-2xl font-bold tracking-tight text-white pt-6 pb-2 border-b border-zinc-800/60"
-        >
-          {block.replace("### ", "")}
-        </h3>
-      );
-    }
-
-    // Numbered list
+    // Numbered specification items
     if (/^\d+\.\s+/.test(block)) {
-      const items = block.split("\n").filter((line) => /^\d+\.\s+/.test(line));
+      const items = parseListItems(block, true);
       return (
-        <ol key={i} className="space-y-3 pl-0 my-4 list-none">
-          {items.map((item, itemIdx) => {
-            const match = item.match(/^(\d+)\.\s+(.*)$/);
-            const num = match ? match[1] : `${itemIdx + 1}`;
-            const text = match ? match[2] : item;
-            const colonIdx = text.indexOf(":");
-            if (colonIdx > 0 && colonIdx < 40) {
-              const itemTitle = text.slice(0, colonIdx);
-              const itemBody = text.slice(colonIdx + 1);
-              return (
-                <li
-                  key={itemIdx}
-                  className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
-                >
-                  <span className="shrink-0 flex items-center justify-center w-6 h-6 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono tabular-nums text-indigo-400 mt-0.5">
-                    {num}
-                  </span>
-                  <div>
-                    <strong className="text-white font-semibold">{itemTitle}:</strong>
-                    <span>{itemBody}</span>
+        <div key={i} className="grid gap-3 pt-2">
+          {items.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-4 rounded-xl bg-zinc-950/60 border border-zinc-800/60 flex items-start gap-3.5 hover:border-zinc-700/60 transition-colors"
+            >
+              <span className="shrink-0 flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-950/60 border border-indigo-800/50 text-xs font-mono tabular-nums text-indigo-400 font-medium">
+                {item.num ? item.num.padStart(2, "0") : `${idx + 1}`.padStart(2, "0")}
+              </span>
+              <div className="space-y-1">
+                {item.title && (
+                  <div className="text-sm font-semibold text-white tracking-tight">
+                    {item.title}
                   </div>
-                </li>
-              );
-            }
-            return (
-              <li
-                key={itemIdx}
-                className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
-              >
-                <span className="shrink-0 flex items-center justify-center w-6 h-6 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono tabular-nums text-indigo-400 mt-0.5">
-                  {num}
-                </span>
-                <span>{text}</span>
-              </li>
-            );
-          })}
-        </ol>
+                )}
+                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">{item.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       );
     }
 
-    // Bullet list
+    // Bullet specification items
     if (/^-\s+/.test(block)) {
-      const items = block.split("\n").filter((line) => /^-\s+/.test(line));
+      const items = parseListItems(block, false);
       return (
-        <ul key={i} className="space-y-3 pl-0 my-4 list-none">
-          {items.map((item, itemIdx) => {
-            const text = item.replace(/^-\s+/, "");
-            const colonIdx = text.indexOf(":");
-            if (colonIdx > 0 && colonIdx < 40) {
-              const itemTitle = text.slice(0, colonIdx);
-              const itemBody = text.slice(colonIdx + 1);
-              return (
-                <li
-                  key={itemIdx}
-                  className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
-                >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2.5"
-                    aria-hidden="true"
-                  />
-                  <div>
-                    <strong className="text-white font-semibold">{itemTitle}:</strong>
-                    <span>{itemBody}</span>
+        <div key={i} className="grid gap-3 pt-2">
+          {items.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-4 rounded-xl bg-zinc-950/60 border border-zinc-800/60 flex items-start gap-3.5 hover:border-zinc-700/60 transition-colors"
+            >
+              <span
+                className="w-2 h-2 rounded-full bg-indigo-400 shrink-0 mt-2"
+                aria-hidden="true"
+              />
+              <div className="space-y-1">
+                {item.title && (
+                  <div className="text-sm font-semibold text-white tracking-tight">
+                    {item.title}
                   </div>
-                </li>
-              );
-            }
-            return (
-              <li
-                key={itemIdx}
-                className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2.5"
-                  aria-hidden="true"
-                />
-                <span>{text}</span>
-              </li>
-            );
-          })}
-        </ul>
+                )}
+                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">{item.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       );
     }
 
@@ -425,22 +455,61 @@ export default function ProjectDetailPage({ params }: Props) {
         )}
 
         {/* Comprehensive Case Study Narrative */}
-        {project.caseStudy && (
-          <section
-            aria-labelledby="case-study-narrative-heading"
-            className="space-y-6 pt-6 border-t border-zinc-900"
-          >
-            <h2
-              id="case-study-narrative-heading"
-              className="text-2xl font-bold tracking-tight text-white"
-            >
-              In-Depth Case Study
-            </h2>
-            <div className="space-y-6 text-zinc-300 leading-relaxed text-sm sm:text-base">
-              {renderCaseStudy(project.caseStudy)}
-            </div>
-          </section>
-        )}
+        {project.caseStudy &&
+          (() => {
+            const chapters = parseCaseStudyChapters(project.caseStudy);
+            const wordCount = project.caseStudy.trim().split(/\s+/).length;
+            const readMinutes = Math.max(1, Math.round(wordCount / 200));
+
+            return (
+              <section
+                aria-labelledby="case-study-narrative-heading"
+                className="space-y-8 pt-8 border-t border-zinc-900"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <h2
+                      id="case-study-narrative-heading"
+                      className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5"
+                    >
+                      <BookOpen className="w-5 h-5 text-indigo-400 shrink-0" aria-hidden="true" />
+                      <span>In-Depth Case Study</span>
+                    </h2>
+                    <p className="text-xs sm:text-sm text-zinc-400">
+                      Comprehensive architectural retrospective, technical trade-offs, and
+                      operational results
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-xs font-mono text-zinc-400">
+                    <Clock className="w-3.5 h-3.5 text-zinc-500" aria-hidden="true" />
+                    <span>~{readMinutes} min read</span>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {chapters.map((chapter, chapterIdx) => (
+                    <article
+                      key={chapterIdx}
+                      className="p-6 sm:p-8 rounded-2xl bg-zinc-900/30 border border-zinc-800/60 space-y-4 hover:border-zinc-700/60 transition-colors"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-800/60">
+                        <div className="flex items-center gap-3">
+                          <span className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-xs font-mono font-medium text-indigo-400">
+                            CHAPTER 0{chapterIdx + 1}
+                          </span>
+                          <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white">
+                            {chapter.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4 pt-1">{renderChapterBlocks(chapter.blocks)}</div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            );
+          })()}
 
         {/* Chronological Traversal: Previous & Next Case Study */}
         <nav
