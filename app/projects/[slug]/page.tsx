@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
+  ArrowRight,
   ExternalLink,
   CheckCircle2,
   Sparkles,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { projects, statusStyles } from "@/content";
 import { Badge } from "@/components/ui/badge";
+import { CopyLinkButton } from "@/components/copy-link-button";
 
 interface Props {
   params: { slug: string };
@@ -36,9 +38,130 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function renderCaseStudy(content: string) {
+  const blocks = content
+    .split("\n\n")
+    .map((b) => b.trim())
+    .filter(Boolean);
+
+  return blocks.map((block, i) => {
+    // Section Heading (###)
+    if (block.startsWith("### ")) {
+      return (
+        <h3
+          key={i}
+          className="text-xl sm:text-2xl font-bold tracking-tight text-white pt-6 pb-2 border-b border-zinc-800/60"
+        >
+          {block.replace("### ", "")}
+        </h3>
+      );
+    }
+
+    // Numbered list
+    if (/^\d+\.\s+/.test(block)) {
+      const items = block.split("\n").filter((line) => /^\d+\.\s+/.test(line));
+      return (
+        <ol key={i} className="space-y-3 pl-0 my-4 list-none">
+          {items.map((item, itemIdx) => {
+            const match = item.match(/^(\d+)\.\s+(.*)$/);
+            const num = match ? match[1] : `${itemIdx + 1}`;
+            const text = match ? match[2] : item;
+            const colonIdx = text.indexOf(":");
+            if (colonIdx > 0 && colonIdx < 40) {
+              const itemTitle = text.slice(0, colonIdx);
+              const itemBody = text.slice(colonIdx + 1);
+              return (
+                <li
+                  key={itemIdx}
+                  className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
+                >
+                  <span className="shrink-0 flex items-center justify-center w-6 h-6 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono tabular-nums text-indigo-400 mt-0.5">
+                    {num}
+                  </span>
+                  <div>
+                    <strong className="text-white font-semibold">{itemTitle}:</strong>
+                    <span>{itemBody}</span>
+                  </div>
+                </li>
+              );
+            }
+            return (
+              <li
+                key={itemIdx}
+                className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
+              >
+                <span className="shrink-0 flex items-center justify-center w-6 h-6 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono tabular-nums text-indigo-400 mt-0.5">
+                  {num}
+                </span>
+                <span>{text}</span>
+              </li>
+            );
+          })}
+        </ol>
+      );
+    }
+
+    // Bullet list
+    if (/^-\s+/.test(block)) {
+      const items = block.split("\n").filter((line) => /^-\s+/.test(line));
+      return (
+        <ul key={i} className="space-y-3 pl-0 my-4 list-none">
+          {items.map((item, itemIdx) => {
+            const text = item.replace(/^-\s+/, "");
+            const colonIdx = text.indexOf(":");
+            if (colonIdx > 0 && colonIdx < 40) {
+              const itemTitle = text.slice(0, colonIdx);
+              const itemBody = text.slice(colonIdx + 1);
+              return (
+                <li
+                  key={itemIdx}
+                  className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2.5"
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <strong className="text-white font-semibold">{itemTitle}:</strong>
+                    <span>{itemBody}</span>
+                  </div>
+                </li>
+              );
+            }
+            return (
+              <li
+                key={itemIdx}
+                className="flex items-start gap-3 text-zinc-300 text-sm sm:text-base leading-relaxed"
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2.5"
+                  aria-hidden="true"
+                />
+                <span>{text}</span>
+              </li>
+            );
+          })}
+        </ul>
+      );
+    }
+
+    // Standard paragraph with constrained measure
+    return (
+      <p key={i} className="text-zinc-300 leading-relaxed text-sm sm:text-base max-w-prose">
+        {block}
+      </p>
+    );
+  });
+}
+
 export default function ProjectDetailPage({ params }: Props) {
   const project = projects.find((p) => p.slug === params.slug);
   if (!project) notFound();
+
+  const currentIndex = projects.findIndex((p) => p.slug === params.slug);
+  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  const nextProject =
+    currentIndex >= 0 && currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
   const related = projects.filter((p) => project.relatedIds.includes(p.id));
 
@@ -65,15 +188,20 @@ export default function ProjectDetailPage({ params }: Props) {
 
       {/* Navigation Header */}
       <header className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-md px-1"
+            className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-md py-1 px-1.5"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             <span>Back to projects</span>
           </Link>
-          <div className="font-mono text-xs text-zinc-500">~/fer / {project.slug}</div>
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline font-mono text-xs text-zinc-500">
+              ~/projects/{project.slug}
+            </span>
+            <CopyLinkButton />
+          </div>
         </div>
       </header>
 
@@ -87,14 +215,14 @@ export default function ProjectDetailPage({ params }: Props) {
             <span className="text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-zinc-900 text-zinc-400 border border-zinc-800">
               {project.category}
             </span>
-            <span className="text-xs font-mono text-zinc-500">{project.year}</span>
+            <span className="text-xs font-mono tabular-nums text-zinc-500">{project.year}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white text-balance">
             {project.title}
           </h1>
 
-          <p className="text-lg sm:text-xl text-zinc-400 leading-relaxed max-w-2xl">
+          <p className="text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-prose">
             {project.content}
           </p>
 
@@ -104,10 +232,10 @@ export default function ProjectDetailPage({ params }: Props) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+                className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-colors shadow-sm shadow-indigo-950/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
                 <span>Live Demo</span>
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className="w-4 h-4" aria-hidden="true" />
               </a>
             )}
             {project.repoUrl && (
@@ -115,7 +243,7 @@ export default function ProjectDetailPage({ params }: Props) {
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 font-medium text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400"
+                className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 font-medium text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
@@ -127,56 +255,77 @@ export default function ProjectDetailPage({ params }: Props) {
         </div>
 
         {/* Project Meta Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/60">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/60">
           <div>
-            <div className="text-xs font-mono uppercase text-zinc-500 mb-1">Role</div>
+            <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mb-1">
+              Role
+            </div>
             <div className="text-sm font-medium text-zinc-200">{project.role}</div>
           </div>
           <div>
-            <div className="text-xs font-mono uppercase text-zinc-500 mb-1">Timeline</div>
-            <div className="text-sm font-medium text-zinc-200">{project.date}</div>
+            <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mb-1">
+              Timeline
+            </div>
+            <div className="text-sm font-medium text-zinc-200 font-mono tabular-nums">
+              {project.date}
+            </div>
           </div>
           <div>
-            <div className="text-xs font-mono uppercase text-zinc-500 mb-1">Category</div>
+            <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mb-1">
+              Category
+            </div>
             <div className="text-sm font-medium text-zinc-200 capitalize">{project.category}</div>
           </div>
           <div>
-            <div className="text-xs font-mono uppercase text-zinc-500 mb-1">Energy Metric</div>
-            <div className="text-sm font-medium text-indigo-400 font-mono">{project.energy}%</div>
+            <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mb-1">
+              Energy Metric
+            </div>
+            <div className="text-sm font-semibold text-indigo-400 font-mono tabular-nums flex items-center gap-2">
+              <span>{project.energy}%</span>
+              <span className="inline-block w-12 h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+                <span
+                  className="block h-full bg-indigo-500 rounded-full"
+                  style={{ width: `${project.energy}%` }}
+                />
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Key Metrics / Quantitative Impact */}
         {project.metrics && project.metrics.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+          <section aria-labelledby="metrics-heading" className="space-y-4">
+            <h2 id="metrics-heading" className="text-xl font-bold tracking-tight text-white">
               Measured Impact & Outcomes
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {project.metrics.map((metric, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-zinc-900/30 border border-zinc-800/50 flex flex-col justify-center"
+                  className="p-5 rounded-2xl bg-zinc-900/30 border border-zinc-800/50 hover:border-zinc-700/60 transition-colors flex flex-col justify-center"
                 >
-                  <div className="text-2xl sm:text-3xl font-bold font-mono text-indigo-400">
+                  <div className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-indigo-400">
                     {metric.value}
                   </div>
                   <div className="text-xs text-zinc-400 mt-1 font-medium">{metric.label}</div>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Problem & Approach */}
         {(project.problem || project.approach) && (
-          <div className="grid md:grid-cols-2 gap-8">
+          <section
+            aria-label="Challenge and Solution"
+            className="grid md:grid-cols-2 gap-6 sm:gap-8"
+          >
             {project.problem && (
               <div className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800/50 space-y-3">
-                <div className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
-                  <Sparkles className="w-4 h-4" />
+                <h3 className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
+                  <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>The Challenge</span>
-                </div>
+                </h3>
                 <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
                   {project.problem}
                 </p>
@@ -184,34 +333,39 @@ export default function ProjectDetailPage({ params }: Props) {
             )}
             {project.approach && (
               <div className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800/50 space-y-3">
-                <div className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
-                  <Layers className="w-4 h-4" />
+                <h3 className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
+                  <Layers className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>The Solution</span>
-                </div>
+                </h3>
                 <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
                   {project.approach}
                 </p>
               </div>
             )}
-          </div>
+          </section>
         )}
 
         {/* Architecture Notes */}
         {project.architecture && (
-          <div className="p-6 rounded-2xl bg-zinc-900/20 border border-zinc-800/40 space-y-3">
-            <div className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
-              <Cpu className="w-4 h-4" />
+          <section
+            aria-label="Technical Architecture"
+            className="p-6 rounded-2xl bg-zinc-900/20 border border-zinc-800/40 space-y-3"
+          >
+            <h3 className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
+              <Cpu className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>Technical Architecture</span>
-            </div>
+            </h3>
             <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
               {project.architecture}
             </p>
-          </div>
+          </section>
         )}
 
         {/* Tech Stack */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold tracking-tight text-white">Technologies Used</h2>
+        <section aria-labelledby="stack-heading" className="space-y-4">
+          <h2 id="stack-heading" className="text-xl font-bold tracking-tight text-white">
+            Technologies Used
+          </h2>
           <div className="flex flex-wrap gap-2">
             {project.stack.map((tech) => (
               <span
@@ -222,12 +376,12 @@ export default function ProjectDetailPage({ params }: Props) {
               </span>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Key Highlights */}
         {project.highlights && project.highlights.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold tracking-tight text-white">
+          <section aria-labelledby="highlights-heading" className="space-y-4">
+            <h2 id="highlights-heading" className="text-xl font-bold tracking-tight text-white">
               Key Deliverables & Highlights
             </h2>
             <div className="space-y-3">
@@ -236,19 +390,25 @@ export default function ProjectDetailPage({ params }: Props) {
                   key={idx}
                   className="flex items-start gap-3 p-4 rounded-xl bg-zinc-900/20 border border-zinc-800/40 text-sm text-zinc-300 leading-relaxed"
                 >
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <CheckCircle2
+                    className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
                   <span>{item}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Key Engineering Learnings */}
         {project.learnings && project.learnings.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-              <Lightbulb className="w-5 h-5 text-amber-400" />
+          <section aria-labelledby="learnings-heading" className="space-y-4">
+            <h2
+              id="learnings-heading"
+              className="text-xl font-bold tracking-tight text-white flex items-center gap-2"
+            >
+              <Lightbulb className="w-5 h-5 text-amber-400 shrink-0" aria-hidden="true" />
               <span>Engineering Insights</span>
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -261,32 +421,92 @@ export default function ProjectDetailPage({ params }: Props) {
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Comprehensive Case Study Narrative */}
         {project.caseStudy && (
-          <div className="space-y-6 pt-6 border-t border-zinc-900">
-            <h2 className="text-2xl font-bold tracking-tight text-white">In-Depth Case Study</h2>
-            <div className="prose prose-invert max-w-none space-y-6 text-zinc-300 leading-relaxed text-sm sm:text-base">
-              {project.caseStudy.split("\n\n").map((paragraph, i) => {
-                if (paragraph.startsWith("### ")) {
-                  return (
-                    <h3 key={i} className="text-xl font-semibold text-white pt-4">
-                      {paragraph.replace("### ", "")}
-                    </h3>
-                  );
-                }
-                return <p key={i}>{paragraph}</p>;
-              })}
+          <section
+            aria-labelledby="case-study-narrative-heading"
+            className="space-y-6 pt-6 border-t border-zinc-900"
+          >
+            <h2
+              id="case-study-narrative-heading"
+              className="text-2xl font-bold tracking-tight text-white"
+            >
+              In-Depth Case Study
+            </h2>
+            <div className="space-y-6 text-zinc-300 leading-relaxed text-sm sm:text-base">
+              {renderCaseStudy(project.caseStudy)}
             </div>
-          </div>
+          </section>
         )}
+
+        {/* Chronological Traversal: Previous & Next Case Study */}
+        <nav
+          aria-label="Case study navigation"
+          className="pt-12 border-t border-zinc-900 grid grid-cols-1 sm:grid-cols-2 gap-4"
+        >
+          {prevProject ? (
+            <Link
+              href={`/projects/${prevProject.slug}`}
+              className="group p-5 rounded-2xl bg-zinc-900/30 border border-zinc-800/50 hover:border-zinc-700 hover:bg-zinc-900/60 transition-all flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+            >
+              <div className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-2">
+                <ArrowLeft
+                  className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform"
+                  aria-hidden="true"
+                />
+                <span>Previous Case Study</span>
+              </div>
+              <div className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors">
+                {prevProject.title}
+              </div>
+              <div className="text-xs text-zinc-500 font-mono uppercase mt-1">
+                {prevProject.category}
+              </div>
+            </Link>
+          ) : (
+            <div className="p-5 rounded-2xl bg-zinc-900/10 border border-zinc-900/50 flex flex-col justify-center text-zinc-600 text-xs font-mono">
+              <span>First Case Study in Sequence</span>
+            </div>
+          )}
+
+          {nextProject ? (
+            <Link
+              href={`/projects/${nextProject.slug}`}
+              className="group p-5 rounded-2xl bg-zinc-900/30 border border-zinc-800/50 hover:border-zinc-700 hover:bg-zinc-900/60 transition-all flex flex-col justify-between text-right sm:items-end focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+            >
+              <div className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-2 justify-end">
+                <span>Next Case Study</span>
+                <ArrowRight
+                  className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors">
+                {nextProject.title}
+              </div>
+              <div className="text-xs text-zinc-500 font-mono uppercase mt-1">
+                {nextProject.category}
+              </div>
+            </Link>
+          ) : (
+            <div className="p-5 rounded-2xl bg-zinc-900/10 border border-zinc-900/50 flex flex-col justify-center items-end text-zinc-600 text-xs font-mono text-right">
+              <span>Latest Case Study in Sequence</span>
+            </div>
+          )}
+        </nav>
 
         {/* Related Projects */}
         {related.length > 0 && (
-          <div className="pt-8 border-t border-zinc-900 space-y-6">
-            <h2 className="text-xl font-bold tracking-tight text-white">Related Projects</h2>
+          <section
+            aria-labelledby="related-heading"
+            className="pt-8 border-t border-zinc-900 space-y-6"
+          >
+            <h2 id="related-heading" className="text-xl font-bold tracking-tight text-white">
+              Related Projects
+            </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {related.map((rel) => (
                 <Link
@@ -305,12 +525,17 @@ export default function ProjectDetailPage({ params }: Props) {
                   </div>
                   <div className="pt-4 flex items-center gap-1 text-xs text-indigo-400 font-medium">
                     <span>Read case study</span>
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    <span
+                      className="group-hover:translate-x-1 transition-transform"
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
                   </div>
                 </Link>
               ))}
             </div>
-          </div>
+          </section>
         )}
       </main>
     </div>
