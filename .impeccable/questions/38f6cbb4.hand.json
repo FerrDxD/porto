@@ -1,0 +1,18 @@
+{
+  "id": "98f95584d3a1a617",
+  "digest": "8c08e59bbb44e742",
+  "comps": [],
+  "sketches": [
+    ".impeccable/mocks/decision/assigned.html",
+    ".impeccable/mocks/decision/model-pick.html",
+    ".impeccable/mocks/decision/challenger-drum-machine.html",
+    ".impeccable/mocks/decision/canon.html"
+  ],
+  "pre": {
+    ".impeccable/mocks/decision/assigned.html": "c7e02b59d457acafb3616753995ef66491da3091000deb7c126eebff46274545",
+    ".impeccable/mocks/decision/model-pick.html": "850752ce19e7b5606d9309315d9758922b3064659b1ac7d003b587daa4489037",
+    ".impeccable/mocks/decision/challenger-drum-machine.html": "36840e52c059a1cec3381dd1f50ebc553aee10c1d9c0afe6c1367317a02c1226",
+    ".impeccable/mocks/decision/canon.html": "d6f6b6eeda67c462b51c9d1a719b500604e86ed530a8d6fc764ccf9fc4f292da"
+  },
+  "startedAt": 1793612035896
+}

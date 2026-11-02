@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #09090b; color: #fafafa;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex; flex-direction: column;
+    border: 1px solid #27272a;
+  }
+  header {
+    height: 72px; padding: 0 48px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #18181b; background: rgba(9,9,11,0.8);
+  }
+  .brand { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700; color: #fafafa; display: flex; align-items: center; gap: 8px; }
+  .brand span { color: #6366f1; }
+  .telemetry-chip {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 12px; border-radius: 9999px;
+    background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: #10b981;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; }
+  main {
+    flex: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; padding: 64px 48px;
+    align-items: center;
+  }
+  .headline { font-size: 58px; font-weight: 900; line-height: 1.05; letter-spacing: -0.035em; color: #fafafa; margin-bottom: 24px; text-wrap: balance; }
+  .headline em { font-style: normal; color: #6366f1; }
+  .subtext { font-size: 18px; line-height: 1.6; color: #a1a1aa; max-width: 540px; margin-bottom: 36px; }
+  .actions { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    background: #6366f1; color: white; padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none;
+    box-shadow: 0 10px 25px -5px rgba(99,102,241,0.4);
+  }
+  .btn-secondary {
+    background: #18181b; color: #e4e4e7; border: 1px solid #27272a; padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 600;
+  }
+  .specimen-panel {
+    background: #121215; border: 1px solid #27272a; border-radius: 16px; padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 20px;
+  }
+  .panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #27272a; padding-bottom: 16px; }
+  .panel-title { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #e4e4e7; text-transform: uppercase; letter-spacing: 0.05em; }
+  .status-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6366f1; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.25); padding: 2px 8px; border-radius: 4px; }
+  .specimen-hero {
+    background: #09090b; border: 1px solid #27272a; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .specimen-name { font-size: 24px; font-weight: 800; color: white; letter-spacing: -0.02em; }
+  .specimen-desc { font-size: 13px; color: #a1a1aa; line-height: 1.5; }
+  .step-row { display: flex; gap: 8px; margin-top: 8px; }
+  .step-key {
+    flex: 1; height: 38px; border-radius: 6px; background: #18181b; border: 1px solid #27272a; display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #71717a;
+  }
+  .step-key.active { background: rgba(99,102,241,0.2); border-color: #6366f1; color: #a5b4fc; }
+  .step-key.accent { background: rgba(16,185,129,0.2); border-color: #10b981; color: #6ee7b7; }
+  .telemetry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .telemetry-cell { background: #09090b; border: 1px solid #27272a; border-radius: 8px; padding: 12px; }
+  .cell-val { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: #fafafa; }
+  .cell-lbl { font-size: 10px; color: #71717a; text-transform: uppercase; margin-top: 2px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span>~/</span>ferdi.dev</div>
+  <div class="telemetry-chip"><span class="dot"></span>CORE ENGINE ONLINE // 99.9% UPTIME</div>
+</header>
+<main>
+  <div>
+    <h1 class="headline">Senior Full-Stack<br>Rigour. <em>Kinetic</em> Craft.</h1>
+    <p class="subtext">Architectural precision in React, Next.js, and TypeScript, engineered alongside award-winning micro-interactions and low-latency system design.</p>
+    <div class="actions">
+      <a class="btn-primary" href="#specimens">Explore Production Systems</a>
+      <a class="btn-secondary" href="#contact">Initiate Contact</a>
+    </div>
+  </div>
+  <div class="specimen-panel">
+    <div class="panel-header">
+      <span class="panel-title">SPECIMEN #01 // LIVE INSTANCE</span>
+      <span class="status-badge">DEPLOYED / VERIFIED</span>
+    </div>
+    <div class="specimen-hero">
+      <div class="specimen-name">Teman Kos</div>
+      <p class="specimen-desc">Conversational companion app with low-latency streaming NLP and local-first offline encrypted persistence.</p>
+      <div class="step-row">
+        <div class="step-key active">STREAM</div>
+        <div class="step-key active">TOKEN &lt;450ms</div>
+        <div class="step-key accent">INDEXED-DB</div>
+        <div class="step-key">SYNC</div>
+      </div>
+    </div>
+    <div class="telemetry-grid">
+      <div class="telemetry-cell">
+        <div class="cell-val">98/100</div>
+        <div class="cell-lbl">Lighthouse Perf</div>
+      </div>
+      <div class="telemetry-cell">
+        <div class="cell-val">&lt;450ms</div>
+        <div class="cell-lbl">Stream TTFT</div>
+      </div>
+      <div class="telemetry-cell">
+        <div class="cell-val">100%</div>
+        <div class="cell-lbl">TypeScript Strict</div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

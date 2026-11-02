@@ -1,0 +1,44 @@
+{
+  "id": "e68ce490a487d8c9",
+  "digest": "b3163fc99a9b674a",
+  "comps": [
+    ".impeccable/mocks/decision/assigned.webp",
+    ".impeccable/mocks/decision/model-pick.webp",
+    ".impeccable/mocks/decision/challenger-drum-machine.webp",
+    ".impeccable/mocks/decision/canon.webp"
+  ],
+  "pre": {},
+  "startedAt": 1793611872203,
+  "worlds": [
+    {
+      "id": "signals-instruments-drum-machine-step-row",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-drum-machine-step-row.webp",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-drum-machine-step-row-hero.webp"
+    },
+    {
+      "id": "ikeda-datamatics",
+      "board": "https://impeccable.style/worlds/cards/ikeda-datamatics.webp",
+      "hero": "https://impeccable.style/worlds/cards/ikeda-datamatics-hero.webp"
+    },
+    {
+      "id": "light-shadow-caustics-rain-night-cityscape",
+      "board": "https://impeccable.style/worlds/cards/light-shadow-caustics-rain-night-cityscape.webp",
+      "hero": "https://impeccable.style/worlds/cards/light-shadow-caustics-rain-night-cityscape-hero.webp"
+    },
+    {
+      "id": "metal-forging-patina-blacksmith-scale-shower",
+      "board": "https://impeccable.style/worlds/cards/metal-forging-patina-blacksmith-scale-shower.webp",
+      "hero": "https://impeccable.style/worlds/cards/metal-forging-patina-blacksmith-scale-shower-hero.webp"
+    },
+    {
+      "id": "digital-design-canon-warm-consumer-app-surface",
+      "board": "https://impeccable.style/worlds/cards/digital-design-canon-warm-consumer-app-surface.webp",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-warm-consumer-app-surface-hero.webp"
+    },
+    {
+      "id": "wayfinding-cartography-signage-salt-stiffened-treasure-map",
+      "board": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-salt-stiffened-treasure-map.webp",
+      "hero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-salt-stiffened-treasure-map-hero.webp"
+    }
+  ]
+}

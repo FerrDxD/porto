@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #09090b; color: #fafafa;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: grid; grid-template-rows: 80px 1fr 60px;
+    border: 1px solid #27272a;
+  }
+  header {
+    padding: 0 64px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #1f1f23;
+  }
+  .title-coord { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #71717a; letter-spacing: 0.1em; }
+  main {
+    padding: 64px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end;
+  }
+  .hero-block { display: flex; flex-direction: column; justify-content: flex-end; }
+  .plate-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6366f1; margin-bottom: 24px; font-weight: 600; }
+  h1 { font-size: 76px; font-weight: 900; line-height: 0.95; letter-spacing: -0.04em; color: white; margin-bottom: 32px; }
+  .bio { font-size: 20px; line-height: 1.6; color: #a1a1aa; max-width: 620px; }
+  .plate-preview {
+    border-left: 1px solid #27272a; padding-left: 48px; display: flex; flex-direction: column; gap: 32px;
+  }
+  .blueprint-card {
+    background: #101014; border: 1px solid #27272a; padding: 32px; border-radius: 8px;
+    position: relative;
+  }
+  .blueprint-card::before {
+    content: "FIG. 01"; position: absolute; top: -10px; left: 24px; background: #09090b; padding: 0 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6366f1;
+  }
+  .card-title { font-size: 24px; font-weight: 700; color: white; margin-bottom: 12px; }
+  .card-meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #71717a; margin-bottom: 16px; }
+  .card-body { font-size: 14px; color: #a1a1aa; line-height: 1.6; }
+  footer {
+    padding: 0 64px; display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid #1f1f23; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #71717a;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="title-coord">~/FERDI.DEV // MONOGRAPH VOL. 2026</div>
+  <div class="title-coord">LAT 6.47° S · LON 107.05° E</div>
+</header>
+<main>
+  <div class="hero-block">
+    <div class="plate-num">ARCHITECTURAL PRACTICE</div>
+    <h1>Maulana Ferdi Irawan</h1>
+    <p class="bio">Full-Stack Engineer & Interface Designer crafting resilient web architecture and poetic interactive media.</p>
+  </div>
+  <div class="plate-preview">
+    <div class="blueprint-card">
+      <div class="card-title">Elegy Journal</div>
+      <div class="card-meta">NEXT.JS 14 · GSAP · WEB CRYPTO AES-GCM</div>
+      <p class="card-body">A contemplative digital journal pairing moody typographic pacing with client-side zero-knowledge encryption.</p>
+    </div>
+  </div>
+</main>
+<footer>
+  <span>VERIFIED REPOSITORIES AVAILABLE ON GITHUB</span>
+  <span>SCROLL FOR MONOGRAPH PLATES ↓</span>
+</footer>
+</body>
+</html>

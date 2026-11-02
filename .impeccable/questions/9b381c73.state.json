@@ -1,0 +1,11 @@
+{
+  "pid": 15672,
+  "port": 49512,
+  "url": "http://127.0.0.1:49512/",
+  "comps": [
+    ".impeccable/mocks/decision/assigned.webp",
+    ".impeccable/mocks/decision/model-pick.webp",
+    ".impeccable/mocks/decision/challenger-drum-machine.webp",
+    ".impeccable/mocks/decision/canon.webp"
+  ]
+}

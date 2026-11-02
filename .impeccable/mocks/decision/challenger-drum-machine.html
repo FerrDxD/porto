@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #121214; color: #e4e4e7;
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column; padding: 48px;
+    border: 1px solid #27272a;
+  }
+  .console-panel {
+    background: #18181b; border: 2px solid #27272a; border-radius: 16px; padding: 40px; flex: 1;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .top-strip { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #27272a; padding-bottom: 24px; }
+  .tempo-box { background: #09090b; border: 1px solid #3f3f46; border-radius: 8px; padding: 8px 16px; font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: #f43f5e; }
+  .brand { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: white; }
+  .hero-synth { margin: 40px 0; }
+  h1 { font-size: 64px; font-weight: 900; letter-spacing: -0.03em; color: white; margin-bottom: 16px; }
+  p { font-size: 20px; color: #a1a1aa; max-width: 680px; line-height: 1.5; }
+  .matrix-channels { display: flex; flex-direction: column; gap: 12px; }
+  .channel-row { display: grid; grid-template-columns: 140px repeat(16, 1fr); gap: 6px; align-items: center; }
+  .channel-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; }
+  .step-pad { height: 42px; border-radius: 6px; background: #27272a; border: 1px solid #3f3f46; }
+  .step-pad.lit-rose { background: #f43f5e; border-color: #fb7185; box-shadow: 0 0 12px #f43f5e; }
+  .step-pad.lit-amber { background: #f59e0b; border-color: #fbbf24; box-shadow: 0 0 12px #f59e0b; }
+  .step-pad.lit-emerald { background: #10b981; border-color: #34d399; box-shadow: 0 0 12px #10b981; }
+</style>
+</head>
+<body>
+<div class="console-panel">
+  <div class="top-strip">
+    <div class="brand">FERDI-DRUM // MK-2026 // FULL-STACK CONSOLE</div>
+    <div class="tempo-box">128.0 BPM [SYNC]</div>
+  </div>
+  <div class="hero-synth">
+    <h1>Maulana Ferdi Irawan</h1>
+    <p>Step-sequenced web development: modular full-stack architecture, clean timing loops, and reactive component synthesis.</p>
+  </div>
+  <div class="matrix-channels">
+    <div class="channel-row">
+      <div class="channel-name">01 TEMAN-KOS</div>
+      <div class="step-pad lit-rose"></div><div class="step-pad"></div><div class="step-pad"></div><div class="step-pad"></div>
+      <div class="step-pad lit-rose"></div><div class="step-pad"></div><div class="step-pad"></div><div class="step-pad"></div>
+      <div class="step-pad lit-rose"></div><div class="step-pad"></div><div class="step-pad"></div><div class="step-pad"></div>
+      <div class="step-pad lit-rose"></div><div class="step-pad"></div><div class="step-pad"></div><div class="step-pad"></div>
+    </div>
+    <div class="channel-row">
+      <div class="channel-name">02 ELEGY</div>
+      <div class="step-pad"></div><div class="step-pad"></div><div class="step-pad lit-amber"></div><div class="step-pad"></div>
+      <div class="step-pad"></div><div class="step-pad"></div><div class="step-pad lit-amber"></div><div class="step-pad"></div>
+      <div class="step-pad"></div><div class="step-pad"></div><div class="step-pad lit-amber"></div><div class="step-pad"></div>
+      <div class="step-pad"></div><div class="step-pad"></div><div class="step-pad lit-amber"></div><div class="step-pad"></div>
+    </div>
+    <div class="channel-row">
+      <div class="channel-name">03 NAWA-LEARN</div>
+      <div class="step-pad lit-emerald"></div><div class="step-pad lit-emerald"></div><div class="step-pad"></div><div class="step-pad"></div>
+      <div class="step-pad lit-emerald"></div><div class="step-pad lit-emerald"></div><div class="step-pad"></div><div class="step-pad"></div>
+      <div class="step-pad lit-emerald"></div><div class="step-pad lit-emerald"></div><div class="step-pad"></div><div class="step-pad"></div>
+      <div class="step-pad lit-emerald"></div><div class="step-pad lit-emerald"></div><div class="step-pad"></div><div class="step-pad"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

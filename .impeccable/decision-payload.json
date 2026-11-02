@@ -1,0 +1,91 @@
+{
+  "title": "Choose the Visual World for Portfolio Redesign",
+  "question": "The roll assigned The Kinematic Engineering Lab. Choose the visual direction for Maulana Ferdi's portfolio landing page.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Kinematic Engineering Lab",
+      "kicker": "THE ROLL",
+      "lineage": "Interactive precision instruments & hardware test benches",
+      "thesis": "Every project treated as a live, operating engineering specimen with interactive probes, verified telemetry, and tactile state controls.",
+      "palette": ["#09090b", "#18181b", "#6366f1", "#10b981", "#fafafa"],
+      "materials": [
+        "anodized obsidian panels",
+        "precision hairline grid",
+        "interactive hardware dials"
+      ],
+      "viewport": "Monumental dual-plane hero: left side anchors command narrative & verified status; right side houses an interactive kinematic specimen engine with live state probes and tangible telemetry.",
+      "risk": "Requires meticulous tactile micro-interactions to feel like physical hardware rather than a flat schematic.",
+      "raised": [
+        {
+          "from": "signals-instruments-drum-machine-step-row",
+          "raise": "Tangible stepped sequencer controls and illuminated state keys embedded into the project inspect engine."
+        },
+        {
+          "from": "ikeda-datamatics",
+          "raise": "Laser-sharp tabular density and zero-fluff data precision for metrics and performance telemetry."
+        }
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html"
+    },
+    {
+      "id": "model-pick",
+      "label": "The Modernist Architectural Monograph",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Swiss International Style & architectural monographs",
+      "thesis": "Architectural grid authority: monumental typography, disciplined white-space, and structural blueprint callouts demonstrating taste and rigor.",
+      "palette": ["#09090b", "#27272a", "#6366f1", "#f4f4f5"],
+      "materials": ["monumental type scale", "asymmetric structural grid", "blueprint annotations"],
+      "viewport": "Full-bleed typographic masthead with structural elevation grid, live coordinate markers, and full-width project case plates.",
+      "risk": "Familiar in high-end design portfolios; risks feeling austere if not energized by dynamic interaction.",
+      "html": ".impeccable/mocks/decision/model-pick.html"
+    },
+    {
+      "id": "challenger-drum-machine",
+      "label": "The Rhythm Matrix & Instrument Console",
+      "verdict": "competitive",
+      "lineage": "Vintage step sequencers and hardware rhythm synthesizers",
+      "thesis": "The portfolio as an interactive soundboard/matrix where every engineering project is an active track with tempo, channels, and live modulation.",
+      "palette": ["#121214", "#f43f5e", "#f59e0b", "#10b981", "#e4e4e7"],
+      "materials": ["illuminated silicone keys", "rotary potentiometers", "LED chase strip"],
+      "viewport": "A 16-channel interactive console header with live transport controls, triggering project stems and interactive demos.",
+      "case": "Exceptional interactive tactile engagement; holds user attention immediately; slightly less conventional for enterprise hiring managers.",
+      "risk": "Audience might treat it as a music toy rather than a serious senior full-stack portfolio.",
+      "html": ".impeccable/mocks/decision/challenger-drum-machine.html",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-drum-machine-step-row-hero.webp"
+    },
+    {
+      "id": "challenger-datamatics",
+      "label": "Pure Datamatics & Spectral Lattice",
+      "verdict": "declined",
+      "lineage": "Ryoji Ikeda datamatics and high-frequency spectral displays",
+      "palette": ["#000000", "#ffffff"],
+      "materials": [
+        "monochrome barcode bars",
+        "high-density tabular ASCII",
+        "spectral sine lattices"
+      ],
+      "case": "Visually arresting minimalism, but loses recruiter readability for narrative case studies.",
+      "kept": "Laser-sharp tabular density and zero-fluff data precision.",
+      "hero": "https://impeccable.style/worlds/cards/ikeda-datamatics-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The Modern Developer Standard",
+    "thesis": "Standard developer portfolio: dark background, hero tagline, centered CTAs, and a grid of 3-column project cards.",
+    "palette": ["#09090b", "#27272a", "#6366f1", "#ffffff"],
+    "materials": ["dark mode cards", "glow borders", "badge tags"],
+    "viewport": "Centered headline, subhead, GitHub and Contact buttons, followed by standard cards.",
+    "risk": "Blends completely into the sea of generic developer websites; forgotten in 30 seconds.",
+    "html": ".impeccable/mocks/decision/canon.html"
+  },
+  "steer": true
+}

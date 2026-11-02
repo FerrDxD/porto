@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #09090b; color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding: 120px 48px; border: 1px solid #27272a;
+  }
+  .badge { display: inline-flex; padding: 6px 16px; border-radius: 9999px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); color: #818cf8; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
+  h1 { font-size: 64px; font-weight: 800; letter-spacing: -0.03em; color: white; margin-bottom: 24px; }
+  p { font-size: 20px; color: #a1a1aa; max-width: 650px; line-height: 1.6; margin-bottom: 36px; }
+  .btn-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 64px; }
+  .btn-blue { background: #6366f1; color: white; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+  .btn-dark { background: #18181b; color: white; border: 1px solid #27272a; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+  .cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 1080px; text-align: left; }
+  .card { background: #121215; border: 1px solid #27272a; border-radius: 12px; padding: 24px; }
+  .card-h { font-size: 18px; font-weight: 700; color: white; margin-bottom: 8px; }
+  .card-p { font-size: 13px; color: #a1a1aa; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="badge">AVAILABLE FOR HIRE</div>
+  <h1>Maulana Ferdi Irawan</h1>
+  <p>Full-Stack Developer & UI Designer building modern web applications with React, Next.js, and TypeScript.</p>
+  <div class="btn-row">
+    <div class="btn-blue">View Projects</div>
+    <div class="btn-dark">Contact Me</div>
+  </div>
+  <div class="cards-row">
+    <div class="card"><div class="card-h">Teman Kos</div><div class="card-p">AI companion app with natural conversation.</div></div>
+    <div class="card"><div class="card-h">Elegy</div><div class="card-p">AI-powered self-reflection journaling platform.</div></div>
+    <div class="card"><div class="card-h">Nawa-Learn</div><div class="card-p">Gamified collaborative learning tool.</div></div>
+  </div>
+</body>
+</html>
