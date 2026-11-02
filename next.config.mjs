@@ -3,9 +3,9 @@ const cspDirectives = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' blob: data: https://cdn.21st.dev",
+  "img-src 'self' blob: data: https://cdn.21st.dev https://avatars.githubusercontent.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://api.resend.com https://*.sentry.io",
+  "connect-src 'self' https://api.resend.com https://*.sentry.io https://api.github.com",
   "frame-ancestors 'none'",
   "form-action 'self'",
   "base-uri 'self'",
@@ -18,6 +18,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "cdn.21st.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
       },
     ],
   },

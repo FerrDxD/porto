@@ -1,0 +1,24 @@
+{
+  "title": "Barrett Test",
+  "date": "2026",
+  "year": 2026,
+  "content": "Digital assessment platform designed to help users identify their potential through profile testing.",
+  "category": "organizational",
+  "role": "Full-Stack Developer",
+  "status": "completed",
+  "energy": 40,
+  "stack": ["Next.js", "TypeScript", "Assessment Logic", "Tailwind CSS"],
+  "highlights": [
+    "Comprehensive assessment algorithm",
+    "User-friendly test interface",
+    "Detailed result analysis and reporting"
+  ],
+  "problem": "Psychological profile evaluations were clunky and confusing for young applicants to complete without supervisor help.",
+  "approach": "Engineered an intuitive single-flow questionnaire interface with instant scoring algorithm and clear visual archetype breakdowns.",
+  "metrics": [
+    { "label": "Tests Completed", "value": "800+" },
+    { "label": "Drop-off Rate", "value": "< 5%" }
+  ],
+  "repoUrl": "https://github.com/FerrDxD/barrett-test",
+  "liveUrl": "https://test.nawasena.site"
+}

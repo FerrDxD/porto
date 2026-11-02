@@ -1,60 +1,18 @@
 import { Skill } from "@/types";
+import tsData from "./data/skills/typescript.json";
+import jsData from "./data/skills/javascript.json";
+import nextData from "./data/skills/nextjs.json";
+import reactData from "./data/skills/react.json";
+import tailwindData from "./data/skills/tailwind-css.json";
+import pgData from "./data/skills/postgresql.json";
+import gsapData from "./data/skills/gsap.json";
 
 export const skills: Skill[] = [
-  {
-    id: 1,
-    name: "TypeScript",
-    category: "Languages",
-    level: "advanced",
-    years: 2,
-  },
-  {
-    id: 2,
-    name: "JavaScript",
-    category: "Languages",
-    level: "expert",
-    years: 3,
-  },
-  {
-    id: 3,
-    name: "Next.js",
-    category: "Frameworks",
-    level: "advanced",
-    years: 2,
-  },
-  {
-    id: 4,
-    name: "React",
-    category: "Frameworks",
-    level: "expert",
-    years: 3,
-  },
-  {
-    id: 5,
-    name: "Tailwind CSS",
-    category: "Styling",
-    level: "advanced",
-    years: 2,
-  },
-  {
-    id: 6,
-    name: "PostgreSQL",
-    category: "Databases",
-    level: "intermediate",
-    years: 1,
-  },
-  {
-    id: 7,
-    name: "GSAP",
-    category: "Animation",
-    level: "intermediate",
-    years: 1,
-  },
-  {
-    id: 8,
-    name: "Git",
-    category: "Tools",
-    level: "advanced",
-    years: 3,
-  },
-];
+  { id: 1, ...tsData },
+  { id: 2, ...jsData },
+  { id: 3, ...nextData },
+  { id: 4, ...reactData },
+  { id: 5, ...tailwindData },
+  { id: 6, ...pgData },
+  { id: 7, ...gsapData },
+] as unknown as Skill[];

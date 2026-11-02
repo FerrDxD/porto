@@ -1,0 +1,33 @@
+{
+  "title": "Elegy",
+  "date": "2026",
+  "year": 2026,
+  "content": "AI-powered self-reflection platform combining generative AI, personal journaling, and cinematic web design.",
+  "category": "showcase",
+  "role": "Full-Stack Developer",
+  "status": "completed",
+  "energy": 85,
+  "stack": ["Next.js", "TypeScript", "AI Integration", "GSAP", "Tailwind CSS"],
+  "highlights": [
+    "Crafted cinematic typography and smooth scroll storytelling powered by GSAP and Lenis",
+    "Developed adaptive LLM introspective prompts reacting dynamically to user sentiment",
+    "Enforced client-side cryptographic encryption for private journaling entries"
+  ],
+  "problem": "Traditional digital journaling is passive. Blank paper syndrome discourages people from articulating difficult emotions or unpacking cognitive biases, while clinical therapy tools feel overly diagnostic and intimidating.",
+  "approach": "Designed a moody, contemplative digital space that pairs atmospheric interactive styling with gentle, intelligent conversational prompts designed to guide users into deeper self-inquiry.",
+  "architecture": "Built with Next.js 14 and GSAP ScrollTrigger for choreographed narrative pacing. Client journals are encrypted in-browser with Web Crypto AES-GCM before persistence, ensuring absolute privacy.",
+  "metrics": [
+    { "label": "Reflection Completion", "value": "84%" },
+    { "label": "Client Encrypted", "value": "100%" },
+    { "label": "Interaction Depth", "value": "8.5 mins" },
+    { "label": "Core Web Vitals", "value": "All Green" }
+  ],
+  "learnings": [
+    "Visual ambiance and typographic pacing directly correlate with how openly users write about personal subjects.",
+    "Web Crypto API in modern browsers enables zero-knowledge privacy with negligible performance overhead.",
+    "ScrollTrigger timelines must be meticulously killed and refreshed during route transitions to prevent DOM leaks."
+  ],
+  "caseStudy": "### The Problem: Passive Writing vs. Active Inward Inquiry\nMost journaling platforms are merely digital word processors with a calendar. They leave the burden of introspective framing entirely on the user. When facing stress or complex life choices, a blank cursor often produces avoidance rather than clarity.\n\nElegy sets out to transform the journal from a passive notebook into an evocative, reflective partner.\n\n### Creative & Technological Direction\n1. Atmospheric User Experience: Using GSAP and subtle chromatic vignettes, the interface calms the user through deliberate typographic pacing, generous negative space, and dark-mode optics designed for evening reflections.\n2. Context-Sensitive Guiding Prompts: As the user writes, a background sentiment analysis thread synthesizes reflective Socratic counter-questions without offering unsolicited advice or patronizing clichés.\n3. Zero-Knowledge Architecture: Personal reflections are encrypted client-side using the native Web Crypto API prior to database serialization. Only the client device holds the salt and decryption key.\n\n### Results & Critical Reception\nBeta users reported an 84% completion rate for multi-step reflective exercises—far exceeding industry norms for digital wellness journals. Elegy stands as proof that software can feel poetic while adhering strictly to high-standard software engineering.",
+  "repoUrl": "https://github.com/FerrDxD/elegy",
+  "liveUrl": "https://refleksi-elegy.vercel.app/"
+}

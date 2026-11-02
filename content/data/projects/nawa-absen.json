@@ -1,0 +1,24 @@
+{
+  "title": "NAWA-ABSEN",
+  "date": "2026",
+  "year": 2026,
+  "content": "Biometric attendance system for OSIS Nawasena.",
+  "category": "organizational",
+  "role": "Full-Stack Developer",
+  "status": "completed",
+  "energy": 70,
+  "stack": ["Next.js", "TypeScript", "Biometric API", "PostgreSQL"],
+  "highlights": [
+    "Biometric authentication integration",
+    "Real-time attendance tracking",
+    "Admin dashboard for management"
+  ],
+  "problem": "Paper-based attendance caused frequent delays, proxy sign-ins, and tedious reporting for organizational meetings.",
+  "approach": "Developed a biometric verification flow connected to PostgreSQL and real-time dashboard analytics with instant export capability.",
+  "metrics": [
+    { "label": "Check-in Speed", "value": "< 2 sec" },
+    { "label": "Attendance Accuracy", "value": "99.8%" }
+  ],
+  "repoUrl": "https://github.com/FerrDxD/nawa-absen",
+  "liveUrl": "https://nawa-absen.vercel.app/"
+}

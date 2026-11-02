@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Clock, Code, BookOpen, Compass, Target } from "lucide-react";
+import nowData from "@/content/data/now.json";
 
 export const metadata: Metadata = {
   title: "Now",
@@ -32,7 +33,7 @@ export default function NowPage() {
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full">
             <Clock className="w-3.5 h-3.5" />
-            <span>Updated November 2026</span>
+            <span>Updated {nowData.updatedDate}</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white">
             What I&apos;m Doing Now
@@ -59,18 +60,9 @@ export default function NowPage() {
             <span>What I&apos;m Building</span>
           </div>
           <ul className="space-y-3 text-sm text-zinc-300 leading-relaxed list-disc list-inside">
-            <li>
-              Polishing production hardening, observability, and test automation across my
-              open-source Next.js application suite.
-            </li>
-            <li>
-              Iterating on local-first AI interfaces with streaming token synthesis and client-side
-              zero-knowledge encryption.
-            </li>
-            <li>
-              Refining high-performance web animations with GSAP and Lenis while enforcing strict
-              WCAG accessibility standards.
-            </li>
+            {nowData.building.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
           </ul>
         </section>
 
@@ -81,16 +73,9 @@ export default function NowPage() {
             <span>What I&apos;m Learning & Exploring</span>
           </div>
           <ul className="space-y-3 text-sm text-zinc-300 leading-relaxed list-disc list-inside">
-            <li>
-              Advanced systems design patterns: sliding-window rate limiters, token-bucket
-              throttling, and resilient distributed edge runtimes.
-            </li>
-            <li>
-              Micro-interactions and typography rhythm that communicate confidence and calm utility.
-            </li>
-            <li>
-              PostgreSQL schema indexing strategies for multi-tenant collaborative learning tools.
-            </li>
+            {nowData.learning.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
           </ul>
         </section>
 
@@ -100,10 +85,7 @@ export default function NowPage() {
             <Target className="w-4 h-4" />
             <span>Current Goals</span>
           </div>
-          <p className="text-sm text-zinc-300 leading-relaxed">
-            Collaborating with ambitious product teams, early-stage engineering startups, or senior
-            peers where polished frontend execution and solid engineering craftsmanship are valued.
-          </p>
+          <p className="text-sm text-zinc-300 leading-relaxed">{nowData.goals}</p>
         </section>
 
         {/* Location & Coordinates */}

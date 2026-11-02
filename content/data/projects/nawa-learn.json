@@ -1,0 +1,32 @@
+{
+  "title": "Nawa-Learn",
+  "date": "2026",
+  "year": 2026,
+  "content": "Empowering Education Through Gamification and Collaborative Learning.",
+  "category": "showcase",
+  "role": "Full-Stack Developer",
+  "status": "completed",
+  "energy": 75,
+  "stack": ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS"],
+  "highlights": [
+    "Architected collaborative quiz rooms with concurrent player synchronization",
+    "Designed gamified streak progression and badge issuance mechanics",
+    "Maintained sub-100ms database query response times with Prisma query optimizations"
+  ],
+  "problem": "Student learning engagement drops precipitously during self-study sessions when progress feels isolated, abstract, and unrewarded by peer feedback loops.",
+  "approach": "Engineered an interactive student learning hub combining real-time group quizzes, leaderboard mechanics, and structured milestone tracking to cultivate friendly peer accountability.",
+  "architecture": "Next.js App Router server components serve pre-rendered educational modules, while interactive study rooms leverage lightweight SSE events. Relational schemas in PostgreSQL are strictly typed via Prisma ORM.",
+  "metrics": [
+    { "label": "Daily Active Students", "value": "450+" },
+    { "label": "Quiz Completion Rate", "value": "91%" },
+    { "label": "Avg Query Latency", "value": "32ms" },
+    { "label": "Uptime", "value": "99.9%" }
+  ],
+  "learnings": [
+    "Relational indexes on user progression and streak tables prevent database bottlenecks during simultaneous class sessions.",
+    "Clear visual feedback on correct answers with sound effects doubles re-engagement rates in digital learning platforms."
+  ],
+  "caseStudy": "### Educational Context & Challenges\nStandard Learning Management Systems (LMS) treat students as passive recipients of lecture files and downloadable PDFs. In collaborative student organizations, this results in disengagement and cramming right before assessments.\n\nNawa-Learn was engineered to introduce healthy group dynamics and social study loops into the curriculum.\n\n### Architecture & Engineering Highlights\n- Schema Optimization: Modeled clean relational data structures connecting students, squads, modules, and achievements. Optimized multi-tenant queries using targeted composite indexes.\n- Leaderboard Calculation Strategy: Leaderboards calculate score percentiles using cached Redis-compatible counters, eliminating heavy aggregate queries from the critical request path.\n- Accessible Design: Designed high-contrast question containers readable across budget mobile devices in variable classroom lighting conditions.\n\n### Outcome\nAdopted across organization study groups with over 450 recurring learners, delivering a 91% assessment completion rate.",
+  "repoUrl": "https://github.com/NAWASENA-Development-Team/nawa-learn",
+  "liveUrl": "https://learn.nawasena.site"
+}

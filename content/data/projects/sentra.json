@@ -1,0 +1,24 @@
+{
+  "title": "SENTRA",
+  "date": "2026",
+  "year": 2026,
+  "content": "Official website for OSIS Nawasena (nawasena.site).",
+  "category": "organizational",
+  "role": "Frontend Developer",
+  "status": "completed",
+  "energy": 95,
+  "stack": ["Nuxt.js", "TypeScript", "Tailwind CSS"],
+  "highlights": [
+    "Modern, responsive organizational website",
+    "SEO-optimized with fast loading times",
+    "Content management system integration"
+  ],
+  "problem": "The student council needed a high-performance, authoritative public portal with zero maintenance friction.",
+  "approach": "Crafted a responsive Nuxt/TypeScript web portal with optimized assets, dynamic news feeds, and strong SEO metadata.",
+  "metrics": [
+    { "label": "Monthly Visitors", "value": "5,000+" },
+    { "label": "Lighthouse Perf", "value": "99/100" }
+  ],
+  "repoUrl": "https://github.com/FerrDxD/sentra-frontend-nuxt",
+  "liveUrl": "https://nawasena.site"
+}

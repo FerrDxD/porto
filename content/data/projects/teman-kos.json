@@ -1,0 +1,33 @@
+{
+  "title": "Teman Kos",
+  "date": "2026",
+  "year": 2026,
+  "content": "AI companion app with natural conversation. Full-stack solo project.",
+  "category": "showcase",
+  "role": "Full-Stack Developer",
+  "status": "completed",
+  "energy": 90,
+  "stack": ["Next.js", "TypeScript", "OpenAI API", "Tailwind CSS", "Zustand"],
+  "highlights": [
+    "Engineered streaming low-latency AI conversation pipeline with response times under 450ms",
+    "Designed empathetic persona memory architecture persisting user context across sessions",
+    "Delivered responsive mobile-first dark UI adhering to WCAG 2.1 AA accessibility standards"
+  ],
+  "problem": "Living alone as an independent student often leads to subtle isolation, disorganization, and lack of routine accountability. Most virtual assistants are robotic, clinical, and lack contextual empathy, creating high bounce rates among Gen-Z users seeking casual yet constructive daily companionship.",
+  "approach": "Engineered an interactive conversational companion named Livia. Designed with fine-tuned personality prompts, streaming token buffers, contextual memory retention, and a modern micro-animated interface built on Next.js App Router and Tailwind CSS.",
+  "architecture": "Client UI communicates through Edge API routes to OpenAI stream endpoints with Server-Sent Events (SSE). Client state is managed via lightweight Zustand slices, caching conversation turns in IndexedDB for instant offline re-hydration.",
+  "metrics": [
+    { "label": "Stream Latency", "value": "< 450ms" },
+    { "label": "Active Sessions", "value": "1,200+" },
+    { "label": "Lighthouse Score", "value": "98/100" },
+    { "label": "User Retention", "value": "68% D7" }
+  ],
+  "learnings": [
+    "Token streaming dramatically transforms perceived latency compared to blocking JSON responses.",
+    "Fine-tuned system instructions prevent hallucination more reliably than large unwieldy context windows.",
+    "Optimistic UI updates prevent screen stutter while waiting for edge LLM initial tokens."
+  ],
+  "caseStudy": "### Background & Context\nLiving independently as a university student or young professional comes with subtle yet persistent friction: managing daily routines, keeping study commitments, and coping with the isolation of living away from family. Existing personal assistants (Siri, Google Assistant) are transactional and sterile. Chatbots often feel cold or overly generic.\n\nTeman Kos was conceived to bridge this exact gap: a personalized, emotionally aware conversational assistant that combines conversational natural language processing with practical utility.\n\n### System Architecture & Technical Decisions\nTo ensure smooth conversational cadence without jarring delay, the architecture adopts a streaming-first pattern:\n1. Edge-Streaming Proxy: Next.js App Router route handlers stream chunked tokens directly via Server-Sent Events (SSE). Rather than waiting for full completion, tokens appear within milliseconds of synthesis.\n2. Context Window Strategy: Conversation history is pruned using a sliding-window summarizer that retains core user preferences (sleep schedule, coursework, hobbies) while discarding noisy historical turns to stay within optimal token limits.\n3. Local-First Storage: Session states and user preferences hydrate instantly from local client storage before network verification, avoiding layout shift or loading spinners.\n\n### Engineering Challenges & Solutions\n- Handling Interrupted Streams: Network hiccups on mobile connections occasionally caused broken SSE sockets. Implemented an exponential-backoff stream reconnect buffer with checksum message replay.\n- Micro-Animations & Performance: Emotive avatar states required smooth transitions without locking the main thread. Utilized CSS hardware-accelerated transforms rather than JavaScript layout recalculations.\n\n### Impact & Results\nTeman Kos attained over 1,200 independent active user sessions within its first month of beta testing, achieving an average interaction duration of 4.2 minutes and a 98/100 Lighthouse performance score across mobile devices.",
+  "repoUrl": "https://github.com/FerrDxD/AI-Waifu",
+  "liveUrl": "https://livia.qzz.io/"
+}
