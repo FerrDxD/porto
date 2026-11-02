@@ -14,6 +14,9 @@ export interface Project {
   status: ProjectStatus;
   energy: number;
   highlights: string[];
+  problem?: string;
+  approach?: string;
+  gallery?: string[];
   repoUrl?: string;
   liveUrl?: string;
   coverImage?: string;

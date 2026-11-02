@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { projects, iconMap } from "@/content";
 import { Project } from "@/types";
@@ -228,27 +229,35 @@ export default function RadialOrbitalTimeline({
                         <p className="text-sm text-zinc-400 leading-relaxed mb-5">{item.content}</p>
 
                         {/* Links */}
-                        <div className="flex gap-3">
-                          {item.repoUrl && (
-                            <a
-                              href={item.repoUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-1 text-center py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg text-xs font-medium text-zinc-300 transition-colors"
-                            >
-                              Repository
-                            </a>
-                          )}
-                          {item.liveUrl && (
-                            <a
-                              href={item.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-1 text-center py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-lg text-xs font-medium text-indigo-300 transition-colors"
-                            >
-                              Live Site
-                            </a>
-                          )}
+                        <div className="flex flex-col gap-2">
+                          <Link
+                            href={`/projects/${item.slug}`}
+                            className="w-full text-center py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-xs font-medium text-white transition-colors"
+                          >
+                            View Case Study →
+                          </Link>
+                          <div className="flex gap-2">
+                            {item.repoUrl && (
+                              <a
+                                href={item.repoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 text-center py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg text-[11px] font-medium text-zinc-300 transition-colors"
+                              >
+                                Code
+                              </a>
+                            )}
+                            {item.liveUrl && (
+                              <a
+                                href={item.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 text-center py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg text-[11px] font-medium text-zinc-300 transition-colors"
+                              >
+                                Demo
+                              </a>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
