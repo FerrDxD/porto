@@ -311,7 +311,7 @@ Prinsip: setiap milestone punya **tujuan jelas, scope terbatas, deliverable teru
 
 ---
 
-### Milestone M9 — Personal Brand & Content Strategy (Prioritas: P2)
+### Milestone M9 — Personal Brand & Content Strategy (Prioritas: P2) — ✅ Done
 
 **Tujuan:** Konten yang meyakinkan recruiter/senior peers.
 
@@ -331,16 +331,16 @@ Prinsip: setiap milestone punya **tujuan jelas, scope terbatas, deliverable teru
 
 ---
 
-## 5. Backlog Teknis Cepat (Bisa dikerjakan paralel)
+## 5. Backlog Teknis Cepat (Bisa dikerjakan paralel) — ✅ All Resolved
 
-- [ ] Ganti `React.ElementType` icon dengan tipe lebih spesifik (`LucideIcon`) di `TimelineItem`.
-- [ ] Ekstrak `statusStyles`/`statusLabels` ke data module.
-- [ ] Tambah `aria-live` untuk expanded card.
-- [ ] Hapus komentar `// Trigger reload` di `app/page.tsx:1`.
-- [ ] Konsistenkan `rel="noopener noreferrer"` di semua anchor eksternal.
-- [ ] Tambah `loading="lazy"` untuk gambar non-critical (atau migrasi ke next/image).
-- [ ] Perbaiki `html lang` agar sesuai konten.
-- [ ] Tambah `prefers-reduced-motion` guard di GSAP/Lenis.
+- [x] Ganti `React.ElementType` icon dengan tipe lebih spesifik (`LucideIcon`) di `TimelineItem`.
+- [x] Ekstrak `statusStyles`/`statusLabels` ke data module.
+- [x] Tambah `aria-live` untuk expanded card.
+- [x] Hapus komentar `// Trigger reload` di `app/page.tsx:1`.
+- [x] Konsistenkan `rel="noopener noreferrer"` di semua anchor eksternal.
+- [x] Tambah `loading="lazy"` untuk gambar non-critical (atau migrasi ke next/image).
+- [x] Perbaiki `html lang` agar sesuai konten.
+- [x] Tambah `prefers-reduced-motion` guard di GSAP/Lenis.
 
 ---
 

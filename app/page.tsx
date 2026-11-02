@@ -1,11 +1,13 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { ProjectsExplorer } from "@/components/projects-explorer";
 import { ContactForm } from "@/components/contact-form";
 import { skills } from "@/content/skills";
 import { experience } from "@/content/experience";
 import { socialLinks } from "@/content/social";
-import { Briefcase, Wrench, CheckCircle2 } from "lucide-react";
+import { testimonials } from "@/content/testimonials";
+import { Briefcase, Wrench, CheckCircle2, MessageSquare, Quote } from "lucide-react";
 
 const RadialOrbitalTimeline = dynamic(
   () => import("@/components/ui/radial-orbital-timeline").then((mod) => mod.default),
@@ -54,8 +56,8 @@ export default function Home() {
               </div>
               <h2 className="text-3xl lg:text-5xl font-bold tracking-tight text-white">Projects</h2>
               <p className="text-zinc-400 text-sm lg:text-base leading-relaxed">
-                Interconnected digital products and open-source applications orbiting in real-time.
-                Select any node to launch its case study.
+                Production-grade digital products and architectural prototypes. Select any orbital
+                node to inspect system metrics and deep case studies.
               </p>
             </div>
             <div className="lg:w-2/3 w-full">
@@ -70,7 +72,7 @@ export default function Home() {
                 All Case Studies & Repositories
               </h3>
               <p className="text-xs text-zinc-400 font-mono">
-                Explore by category or filter by technology stack.
+                Filter by architecture domain or target technical stack.
               </p>
             </div>
             <ProjectsExplorer />
@@ -88,7 +90,8 @@ export default function Home() {
               Skills & Architecture
             </h2>
             <p className="text-zinc-400 text-sm max-w-xl">
-              Languages, frameworks, and engineering tools leveraged for production applications.
+              Modern frontend architecture, state orchestration, serverless runtimes, and design
+              systems built for scale.
             </p>
           </div>
 
@@ -121,13 +124,13 @@ export default function Home() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo-400">
               <Briefcase className="w-4 h-4" />
-              <span>{"// Professional Timeline"}</span>
+              <span>{"// Engineering History"}</span>
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white">
               Work Experience
             </h2>
             <p className="text-zinc-400 text-sm max-w-xl">
-              Roles and client engagements delivering resilient web software.
+              Proven track record delivering reliable web software for teams and client initiatives.
             </p>
           </div>
 
@@ -170,6 +173,43 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Testimonials / Peer Endorsements Section */}
+        <section id="testimonials" className="space-y-10">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo-400">
+              <MessageSquare className="w-4 h-4" />
+              <span>{"// Peer Endorsements"}</span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white">
+              Collaborator Endorsements
+            </h2>
+            <p className="text-zinc-400 text-sm max-w-xl">
+              Direct feedback from technical leaders and peers who have shipped software with me.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((t) => (
+              <div
+                key={t.id}
+                className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800/60 flex flex-col justify-between space-y-6"
+              >
+                <div className="space-y-4">
+                  <Quote className="w-6 h-6 text-indigo-500/40" />
+                  <p className="text-sm text-zinc-300 leading-relaxed italic">
+                    &ldquo;{t.content}&rdquo;
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-zinc-800/40">
+                  <div className="text-sm font-bold text-white">{t.name}</div>
+                  <div className="text-xs text-indigo-400 font-medium">{t.role}</div>
+                  <div className="text-[11px] font-mono text-zinc-500 mt-0.5">{t.organization}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Contact Section */}
         <section
           id="contact"
@@ -185,8 +225,8 @@ export default function Home() {
               Ready to collaborate?
             </h2>
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
-              Have a product vision, architectural challenge, or engineering opportunity? Transmit a
-              message directly below.
+              Have an engineering challenge, high-impact product initiative, or design inquiry?
+              Transmit a message directly below.
             </p>
           </div>
 
@@ -211,7 +251,10 @@ export default function Home() {
           <div>
             <p>© {new Date().getFullYear()} Maulana Ferdi Irawan. Based in Jonggol, Indonesia.</p>
           </div>
-          <div className="flex gap-6 font-mono">
+          <div className="flex items-center gap-6 font-mono">
+            <Link href="/now" className="hover:text-indigo-400 transition-colors">
+              /now
+            </Link>
             {socialLinks.map((s) => (
               <a
                 key={s.id}

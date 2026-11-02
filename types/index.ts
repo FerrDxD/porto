@@ -1,6 +1,11 @@
 export type ProjectStatus = "completed" | "in-progress" | "pending";
 export type ProjectCategory = "showcase" | "organizational" | "experimental";
 
+export interface Metric {
+  label: string;
+  value: string;
+}
+
 export interface Project {
   id: number;
   slug: string;
@@ -16,6 +21,10 @@ export interface Project {
   highlights: string[];
   problem?: string;
   approach?: string;
+  metrics?: Metric[];
+  architecture?: string;
+  learnings?: string[];
+  caseStudy?: string;
   gallery?: string[];
   repoUrl?: string;
   liveUrl?: string;
@@ -57,4 +66,13 @@ export interface SiteConfig {
     email: string;
     location: string;
   };
+}
+
+export interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  organization: string;
+  content: string;
+  relationship: string;
 }

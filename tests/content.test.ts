@@ -1,9 +1,10 @@
 import { describe, it, expect } from "bun:test";
-import { projects } from "@/content/projects";
+import { projects, statusStyles, statusLabels } from "@/content/projects";
 import { skills } from "@/content/skills";
 import { experience } from "@/content/experience";
 import { siteConfig } from "@/content/site";
 import { socialLinks } from "@/content/social";
+import { testimonials } from "@/content/testimonials";
 
 describe("Content layer data integrity", () => {
   it("projects have unique IDs and unique slugs", () => {
@@ -35,6 +36,20 @@ describe("Content layer data integrity", () => {
       expect(validStatuses).toContain(p.status);
       expect(p.energy).toBeGreaterThanOrEqual(0);
       expect(p.energy).toBeLessThanOrEqual(100);
+      expect(statusStyles[p.status]).toBeDefined();
+      expect(statusLabels[p.status]).toBeDefined();
+    }
+  });
+
+  it("featured projects have deep case studies and impact metrics", () => {
+    const featured = projects.slice(0, 3);
+    for (const p of featured) {
+      expect(p.problem).toBeDefined();
+      expect(p.approach).toBeDefined();
+      expect(p.architecture).toBeDefined();
+      expect(p.caseStudy).toBeDefined();
+      expect(p.caseStudy?.length).toBeGreaterThan(300);
+      expect(p.metrics && p.metrics.length).toBeGreaterThan(0);
     }
   });
 
@@ -53,6 +68,16 @@ describe("Content layer data integrity", () => {
       expect(e.company.length).toBeGreaterThan(0);
       expect(e.role.length).toBeGreaterThan(0);
       expect(e.achievements.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("testimonials contain valid names, roles, organizations, and endorsements", () => {
+    expect(testimonials.length).toBeGreaterThanOrEqual(3);
+    for (const t of testimonials) {
+      expect(t.name.length).toBeGreaterThan(0);
+      expect(t.role.length).toBeGreaterThan(0);
+      expect(t.organization.length).toBeGreaterThan(0);
+      expect(t.content.length).toBeGreaterThan(20);
     }
   });
 
