@@ -135,46 +135,22 @@ export function ParallaxComponent() {
         </div>
       </section>
       <section className="absolute top-[100vh] w-full min-h-[50vh] bg-zinc-950 flex flex-col items-center justify-center z-30 px-6 py-12 lg:py-0">
-        <div
-          id="about"
-          className="space-y-6 lg:space-y-0 max-w-3xl lg:max-w-5xl w-full flex flex-col lg:flex-row lg:gap-16 lg:items-start"
-        >
-          <div className="flex-1 space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-xs font-mono text-zinc-400">
-              <span
-                className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
-                aria-hidden="true"
-              />
-              <span>Available for projects</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white text-balance">
-              Frontend Developer <br className="hidden lg:block" />& UI Designer
-            </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-zinc-300 leading-relaxed max-w-2xl">
-              I craft modern, end-to-end digital products with a focus on polished interfaces and
-              seamless user experiences. Specializing in React, Next.js, and Tailwind CSS, I build
-              everything from AI companions to biometric attendance systems for real-world
-              operations.
-            </p>
+        <div id="about" className="max-w-3xl lg:max-w-4xl w-full space-y-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-xs font-mono text-zinc-400">
+            <span
+              className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+              aria-hidden="true"
+            />
+            <span>Available for projects</span>
           </div>
-          <div className="w-full lg:w-72 flex flex-wrap sm:flex-nowrap lg:flex-col gap-8 lg:gap-6 pt-6 lg:pt-2 border-t lg:border-t-0 lg:border-l border-zinc-900 lg:pl-10 mt-6 lg:mt-2">
-            <div>
-              <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-1.5">
-                Disciplines
-              </p>
-              <p className="text-sm sm:text-base font-medium text-zinc-200">
-                Frontend · UI/UX · Event Directing
-              </p>
-            </div>
-            <div>
-              <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-1.5">
-                Location
-              </p>
-              <p className="text-sm sm:text-base font-medium text-zinc-200 font-mono tabular-nums">
-                Indonesia · UTC+7
-              </p>
-            </div>
-          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white text-balance">
+            Frontend Developer <br className="hidden sm:block" />& UI Designer
+          </h2>
+          <p className="text-base sm:text-lg lg:text-xl text-zinc-300 leading-relaxed max-w-3xl">
+            I craft modern, end-to-end digital products with a focus on polished interfaces and
+            seamless user experiences. Specializing in React, Next.js, and Tailwind CSS, I build
+            everything from AI companions to biometric attendance systems for real-world operations.
+          </p>
         </div>
       </section>
     </div>
